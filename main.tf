@@ -68,7 +68,7 @@ resource "aws_s3_bucket_website_configuration" "web-config" {
  
   # Configuration for the index document
   index_document {
-    suffix = "index.html"
+    suffix = "index.htm"
   }
 }
  
