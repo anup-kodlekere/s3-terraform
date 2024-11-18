@@ -37,6 +37,10 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: terraform apply -auto-approve
 
+      - name: Save tfstate
+        run: |
+          cat terraform.tfstate
+
       - name: Save terraform tfstate file
         env:
           GITHUB_TOKEN: ${{ secrets.PR_GITHUB_TOKEN }}
