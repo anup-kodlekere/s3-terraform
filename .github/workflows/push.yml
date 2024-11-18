@@ -5,7 +5,8 @@ on:
   push:
   pull_request:
 
-permissions: read-all
+permissions:
+  contents: write
 
 jobs:
   push_to_s3:
