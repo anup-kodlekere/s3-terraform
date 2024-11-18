@@ -5,6 +5,8 @@ on:
   push:
   pull_request:
 
+permissions: read-all
+
 jobs:
   push_to_s3:
     name: Push to S3
@@ -13,37 +15,41 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         
-      - name: Install Dependencies
-        uses: hashicorp/setup-terraform@v3
+      # - name: Install Dependencies
+      #   uses: hashicorp/setup-terraform@v3
 
-      - name: Terraform Initialize
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: terraform init
+      # - name: Terraform Initialize
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #   run: terraform init
 
-      - name: Terraform Validate
-        run: terraform validate
+      # - name: Terraform Validate
+      #   run: terraform validate
   
-      - name: Terraform Plan
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: terraform plan
+      # - name: Terraform Plan
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #   run: terraform plan
   
-      - name: Terraform Apply
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: terraform apply -auto-approve
+      # - name: Terraform Apply
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #   run: terraform apply -auto-approve
 
-      - name: Save tfstate
+      # - name: Save tfstate
+      #   run: |
+      #     cat terraform.tfstate
+
+      - name: create
         run: |
-          cat terraform.tfstate
+          echo "this is hello" > file.txt
 
       - name: Save terraform tfstate file
         env:
-          GITHUB_TOKEN: ${{ secrets.PR_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
